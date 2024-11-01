@@ -1,0 +1,38 @@
+﻿#!/bin/bash
+#Henrique Carvalho Ribeiro
+#Purpose: This script has multiple functions to copy, remove, delete, rename, and print the contents of a file.
+#Last Revision Date: 10/31/2024
+#Variables:
+INPUT=$1
+FILE=$2
+TARGET=$3
+
+
+# Case statement for all inputs
+case "$INPUT" in
+    "author")
+        echo "Carvalho, Henrique" #Print my name
+        ;;
+    "type")
+        cat "$FILE" #Print contents of the file
+        ;;
+    "copy")
+        cp "$FILE" "$TARGET" &> /dev/null #Copy the file
+        ;;
+    "ren"|"move")
+        mv "$FILE" "$TARGET" &> /dev/null #Move/rename file (same command)
+        ;;
+    "del")
+                rm -f "$FILE" &> /dev/null #Delete file (-f for no confirmation)
+        ;;
+    "help" | *) #help command
+        echo "Supported commands:"
+                echo "  author - Output author’s first and last name"
+                echo "  type <file> - Output the content of the file in the first parameter"
+                echo "  copy <source> <destination> - Copy a file"
+                echo "  ren <old name> <new name>  - Rename a file"
+                echo "  move <source> <destination>  - Move a file"
+                echo "  del <file> - Delete a file without asking for confirmation"
+                echo "  help  - output a list of supported commands, their action, and required parameters"
+        ;;
+esac
